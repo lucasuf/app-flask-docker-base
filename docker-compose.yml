@@ -8,7 +8,7 @@ web:
   volumes:
     - /usr/src/app/project/static
   env_file: .env
-  command: /usr/local/bin/gunicorn -w 2 -b :8000 run:app
+  command: /usr/local/bin/gunicorn -w 2 -b :8000 manage:app
 
 nginx:
   restart: always

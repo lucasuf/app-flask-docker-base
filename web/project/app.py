@@ -2,25 +2,24 @@
 
 
 from flask import Flask
-from flask import request, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate,MigrateCommand
+from flask_script import Manager
+
 from project.config import BaseConfig
 
 
 app = Flask(__name__)
 app.config.from_object(BaseConfig)
+
+# --- Flask-SQLAlchemy ---
 db = SQLAlchemy(app)
 
+# --- Flask-Migrate ---
+migrate = Migrate(app, db)
 
-from project.models import *
+# --- Flask-Script ---
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    if request.method == 'POST':
-        text = request.form['text']
-        post = Post(text)
-        db.session.add(post)
-        db.session.commit()
-    posts = Post.query.order_by(Post.date_posted.desc()).all()
-    return render_template('index.html', posts=posts)
