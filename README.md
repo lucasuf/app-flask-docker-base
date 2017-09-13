@@ -15,6 +15,10 @@ $ docker-compose up -d
 4. Create the database table
 $ docker-compose run web /usr/local/bin/python instance/create_db.py
 
-
+5. Fazer modificações no banco
+$ docker-compose run web /bin/bash
+$ python manage.py db init
+$ python manage.py db migrate
+$ python manage.py db upgrade
 
 
