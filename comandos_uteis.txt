@@ -1,0 +1,6 @@
+sed -i 's/\.html//g' *.html #substituir partes de codigo em diretorio
+
+grep -r '\.html'	#achar arquivos com .html
+
+vim web
+
